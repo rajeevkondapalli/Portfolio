@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JARVIS Assistant</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at center, #102a43, #05080f 65%);
+            color: white;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .jarvis {
+            width: 100%;
+            max-width: 650px;
+
+            text-align: center;
+
+            background: rgba(255,255,255,0.06);
+
+            border: 1px solid rgba(0,200,255,0.25);
+
+            border-radius: 30px;
+
+            padding: 45px 30px;
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 0 50px rgba(0,180,255,0.12);
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+
+            margin: 0 auto 25px;
+
+            border-radius: 50%;
+
+            border: 3px solid #00c8ff;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 60px;
+
+            box-shadow:
+                0 0 20px #00c8ff,
+                inset 0 0 30px rgba(0,200,255,0.2);
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%, 100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 20px #00c8ff,
+                    inset 0 0 30px rgba(0,200,255,0.2);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow:
+                    0 0 45px #00c8ff,
+                    inset 0 0 40px rgba(0,200,255,0.3);
+            }
+
+        }
+
+        h1 {
+            font-size: 45px;
+            letter-spacing: 5px;
+            color: #00c8ff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #9fb4c9;
+            margin-bottom: 35px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 15px;
+
+            border-radius: 30px;
+
+            background: rgba(0,200,255,0.1);
+
+            color: #6ddfff;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+
+            background: #00ff9d;
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 10px #00ff9d;
+        }
+
+        .output {
+            min-height: 90px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            border-radius: 18px;
+
+            background: rgba(0,0,0,0.25);
+
+            color: #dcefff;
+
+            font-size: 18px;
+        }
+
+        .mic-button {
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            border: 2px solid #00c8ff;
+
+            background: rgba(0,200,255,0.12);
+
+            color: white;
+
+            font-size: 38px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .mic-button:hover {
+            transform: scale(1.1);
+
+            background: rgba(0,200,255,0.25);
+
+            box-shadow:
+                0 0 35px rgba(0,200,255,0.6);
+        }
+
+        .commands {
+            margin-top: 30px;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .command {
+            padding: 10px 15px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,0.07);
+
+            color: #9fb4c9;
+
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+
+            margin-top: 30px;
+
+            color: #7c9bb5;
+
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+
+            .jarvis {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 35px;
+            }
+
+            .logo {
+                width: 120px;
+                height: 120px;
+                font-size: 45px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="jarvis">
+
+        <div class="logo">
+            🤖
+        </div>
+
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            JARVIS ONLINE
+
+        </div>
+
+
+        <h1>
+            JARVIS
+        </h1>
+
+
+        <p class="subtitle">
+            Personal Voice Assistant
+        </p>
+
+
+        <div
+            class="output"
+            id="output"
+        >
+            Press the microphone and say something...
+        </div>
+
+
+        <button
+            class="mic-button"
+            onclick="startListening()"
+        >
+            🎙️
+        </button>
+
+
+        <div class="commands">
+
+            <span class="command">
+                "Hello Jarvis"
+            </span>
+
+            <span class="command">
+                "What time is it?"
+            </span>
+
+            <span class="command">
+                "Open Google"
+            </span>
+
+            <span class="command">
+                "Open YouTube"
+            </span>
+
+        </div>
+
+
+        <a
+            href="../index.html"
+            class="back"
+        >
+            ← Back to Portfolio
+        </a>
+
+    </div>
+
+
+    <script>
+
+        const output =
+            document.getElementById("output");
+
+
+        function startListening() {
+
+            if (!("webkitSpeechRecognition" in window)) {
+
+                output.textContent =
+                    "Speech recognition is not supported in this browser.";
+
+                return;
+
+            }
+
+
+            const recognition =
+                new webkitSpeechRecognition();
+
+
+            recognition.lang = "en-US";
+
+            recognition.start();
+
+
+            output.textContent =
+                "🎙️ Listening...";
+
+
+            recognition.onresult =
+                function(event) {
+
+                    const text =
+                        event.results[0][0].transcript;
+
+                    output.textContent =
+                        "You said: " + text;
+
+                    processCommand(text.toLowerCase());
+
+                };
+
+
+            recognition.onerror =
+                function() {
+
+                    output.textContent =
+                        "Sorry, I couldn't hear you.";
+
+                };
+
+        }
+
+
+        function processCommand(command) {
+
+            if (command.includes("hello")) {
+
+                speak(
+                    "Hello Rajeev. How can I help you?"
+                );
+
+            }
+
+            else if (
+                command.includes("time")
+            ) {
+
+                const time =
+                    new Date().toLocaleTimeString();
+
+                speak(
+                    "The current time is " + time
+                );
+
+            }
+
+            else if (
+                command.includes("google")
+            ) {
+
+                speak("Opening Google");
+
+                window.open(
+                    "https://www.google.com",
+                    "_blank"
+                );
+
+            }
+
+            else if (
+                command.includes("youtube")
+            ) {
+
+                speak("Opening YouTube");
+
+                window.open(
+                    "https://www.youtube.com",
+                    "_blank"
+                );
+
+            }
+
+            else {
+
+                speak(
+                    "I heard you, but I don't know that command yet."
+                );
+
+            }
+
+        }
+
+
+        function speak(text) {
+
+            output.textContent =
+                "JARVIS: " + text;
+
+
+            const speech =
+                new SpeechSynthesisUtterance(text);
+
+
+            speech.rate = 0.9;
+
+            speech.pitch = 1;
+
+
+            window.speechSynthesis.speak(
+                speech
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
